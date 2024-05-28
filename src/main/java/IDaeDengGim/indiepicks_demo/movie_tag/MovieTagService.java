@@ -4,9 +4,9 @@ import IDaeDengGim.indiepicks_demo.tag.Tag;
 import IDaeDengGim.indiepicks_demo.tag.TagRepository;
 import IDaeDengGim.indiepicks_demo.movie.Movie;
 import IDaeDengGim.indiepicks_demo.movie.MovieRepository;
+import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -18,16 +18,20 @@ import java.util.Iterator;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class MovieTagService {
 
-    @Autowired
-    private MovieRepository movieRepository;
-
-    @Autowired
-    private TagRepository tagRepository;
+    private final MovieRepository movieRepository;
+    private final TagRepository tagRepository;
 
     @Transactional
     public void loadDataFromXLSX(String filePath) throws IOException {
+        // 데이터베이스에 데이터가 이미 존재하는지 확인합니다.
+        if (movieRepository.count() > 0) {
+            System.out.println("데이터가 이미 존재합니다. 로딩을 중단합니다.");
+            return;
+        }
+
         FileInputStream fileInputStream = new FileInputStream(filePath);
         Workbook workbook = new XSSFWorkbook(fileInputStream);
         Sheet sheet = workbook.getSheetAt(0); // 첫 번째 시트 가져오기
@@ -77,5 +81,10 @@ public class MovieTagService {
 
         workbook.close();
         fileInputStream.close();
+    }
+
+    public boolean isDataLoaded() {
+        // 데이터가 이미 존재하는지 확인하는 로직
+        return movieRepository.count() > 0;
     }
 }
