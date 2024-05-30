@@ -3,8 +3,12 @@ package IDaeDengGim.indiepicks_demo.movie_tag;
 import IDaeDengGim.indiepicks_demo.tag.Tag;
 import IDaeDengGim.indiepicks_demo.movie.Movie;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "movie_tag")
 public class MovieTag {
 
@@ -20,20 +24,13 @@ public class MovieTag {
     @JoinColumn(name = "tag_id", referencedColumnName = "id")
     private Tag tag;
 
-    //Getter and Setter
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
+    // Constructor
+    public MovieTag(Movie movie, Tag tag) {
         this.movie = movie;
-    }
-
-    public Tag getTag() {
-        return tag;
-    }
-
-    public void setTag(Tag tag) {
         this.tag = tag;
+    }
+
+    public MovieTag() {
+
     }
 }
