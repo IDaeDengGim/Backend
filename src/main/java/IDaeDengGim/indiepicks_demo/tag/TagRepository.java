@@ -2,6 +2,7 @@ package IDaeDengGim.indiepicks_demo.tag;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,6 +11,6 @@ import java.util.List;
 public interface TagRepository extends JpaRepository<Tag, Long> {
     Tag findByName(String name);
 
-    @Query(value = "SELECT * FROM TAG ORDER BY RAND() LIMIT 20",nativeQuery=true)
-    List<Tag> findRandomTags();
+    @Query(value ="SELECT * FROM tag ORDER BY RAND() LIMIT :limit",nativeQuery = true)
+    List<Tag> findRandomTags(@Param("limit")int limit);
 }
