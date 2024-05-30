@@ -3,6 +3,7 @@ package IDaeDengGim.indiepicks_demo.movie;
 import IDaeDengGim.indiepicks_demo.movie_tag.MovieTagRepository;
 import IDaeDengGim.indiepicks_demo.tag.Tag;
 import IDaeDengGim.indiepicks_demo.movie_tag.MovieTag;
+import IDaeDengGim.indiepicks_demo.tag.TagDTO;
 import IDaeDengGim.indiepicks_demo.tag.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,14 @@ public class MovieService {
     public Movie getMovieById(Long id) {
         return movieRepository.findById(id)
                 .orElse(null);
+    }
+
+    // 랜덤하게 영화 10개 가져오기
+    public List<MovieDTO> getRandomMovies(int limit) {
+        List<Movie> randomMovies = movieRepository.findRandomMovies(limit);
+        return randomMovies.stream()
+                .map(movie -> new MovieDTO(movie))
+                .collect(Collectors.toList());
     }
 
     // 태그 id를 받아서 가져오기
