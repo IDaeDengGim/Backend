@@ -24,7 +24,7 @@ public class MovieTagService {
     private final MovieRepository movieRepository;
     private final TagRepository tagRepository;
 
-    @Transactional
+    @Transactional //create schema IndiePicks;
     public void loadDataFromXLSX(String filePath) throws IOException {
         // 데이터베이스에 데이터가 이미 존재하는지 확인합니다.
         if (movieRepository.count() > 0) {

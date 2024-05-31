@@ -21,7 +21,7 @@ public class MovieController {
     @GetMapping("/movie")
     public ResponseEntity<List<MovieDTO>> randomKeyword(){
         try{
-            List<MovieDTO> movies = movieService.getRandomMovies(5);
+            List<MovieDTO> movies = movieService.getRandomMovies(10);
             return new ResponseEntity<>(movies, HttpStatus.OK);
         } catch(Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

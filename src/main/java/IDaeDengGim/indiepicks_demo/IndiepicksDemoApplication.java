@@ -26,8 +26,8 @@ public class IndiepicksDemoApplication {
 	@PostConstruct
 	public void init() {
 		if (!movieTagService.isDataLoaded()) { // 데이터가 이미 로드되지 않은 경우에만 로드
-			// 상대 경로를 사용하여 파일 경로를 설정합니다.
-			// 프로젝트 내의 resources 디렉토리에 있는 파일을 읽어오기 위해 getResource 메서드를 사용합니다.
+			// 상대 경로를 사용하여 파일 경로를 설정
+			// resources 디렉토리에 있는 파일 읽어오기
 			URL resource = getClass().getClassLoader().getResource("temp.xlsx");
 			if (resource == null) {
 				System.err.println("파일을 찾을 수 없습니다.");
