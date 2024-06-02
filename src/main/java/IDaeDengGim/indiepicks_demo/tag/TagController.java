@@ -20,7 +20,7 @@ public class TagController {
     @GetMapping("/keyword")
     public ResponseEntity<List<TagDTO>> randomKeyword(){
         try{
-            List<TagDTO> tags = tagService.getRandomTags(10);
+            List<TagDTO> tags = tagService.getRandomTags(20);
             return new ResponseEntity<>(tags, HttpStatus.OK);
         } catch(Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

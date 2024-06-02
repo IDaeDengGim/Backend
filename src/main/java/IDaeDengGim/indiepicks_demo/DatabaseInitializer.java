@@ -1,28 +1,24 @@
-package IDaeDengGim.indiepicks_demo.movie_tag;
+package IDaeDengGim.indiepicks_demo;
 
-import IDaeDengGim.indiepicks_demo.tag.Tag;
-import IDaeDengGim.indiepicks_demo.tag.TagRepository;
 import IDaeDengGim.indiepicks_demo.movie.Movie;
 import IDaeDengGim.indiepicks_demo.movie.MovieRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class MovieTagService {
-
-    private final MovieRepository movieRepository;
-    private final TagRepository tagRepository;
+public class DatabaseInitializer {
+    private final MovieRepository movieRepository ;
 
     @Transactional //create schema IndiePicks;
     public void loadDataFromXLSX(String filePath) throws IOException {
@@ -49,7 +45,8 @@ public class MovieTagService {
             movie.setTitle(cellIterator.next().getStringCellValue());
             movie.setUrl(cellIterator.next().getStringCellValue());
             movie.setYear(String.valueOf(cellIterator.next().getNumericCellValue()));
-            movie.setGenre(cellIterator.next().getStringCellValue());
+            //cellIterator.next(); // Genre 스킵
+            movie.setG(cellIterator.next().getStringCellValue());
             movie.setDirector(cellIterator.next().getStringCellValue());
             movie.setActor(cellIterator.next().getStringCellValue());
             movie.setCompany(cellIterator.next().getStringCellValue());
@@ -57,20 +54,7 @@ public class MovieTagService {
             movie.setGrade(cellIterator.next().getStringCellValue());
             movie.setColor(cellIterator.next().getStringCellValue());
 
-            String[] tags = cellIterator.next().getStringCellValue().split("#");
-            Set<Tag> tagSet = new HashSet<>();
-            for (String tagName : tags) {
-                if (!StringUtils.isEmpty(tagName.trim())) {
-                    Tag tag = tagRepository.findByName(tagName.trim());
-                    if (tag == null) {
-                        tag = new Tag();
-                        tag.setName(tagName.trim());
-                        tagRepository.save(tag);
-                    }
-                    tagSet.add(tag);
-                }
-            }
-            movie.setTags(tagSet);
+            cellIterator.next(); // Tag 스킵
 
             movie.setSynopsys(cellIterator.next().getStringCellValue());
             movie.setIntent(cellIterator.next().getStringCellValue());

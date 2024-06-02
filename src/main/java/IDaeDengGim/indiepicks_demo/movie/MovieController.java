@@ -27,9 +27,4 @@ public class MovieController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-//    @GetMapping("/recommendedMovie")
-//    public List<Movie> getRecommendedMovies(@RequestParam List<Long> tagIds) {
-//        return movieService.getRecommendedMovies(tagIds);
-//    }
 }
