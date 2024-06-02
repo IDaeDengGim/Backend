@@ -1,4 +1,4 @@
-package IDaeDengGim.indiepicks_demo.tag;
+package IDaeDengGim.indiepicks_demo.genre;
 
 import IDaeDengGim.indiepicks_demo.movie.Movie;
 import jakarta.persistence.*;
@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-public class Tag {
+public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,6 +19,6 @@ public class Tag {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "tag")
+    @ManyToMany(mappedBy = "genre")
     private Set<Movie> movies = new HashSet<>();
 }

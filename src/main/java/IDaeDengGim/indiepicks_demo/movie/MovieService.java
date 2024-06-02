@@ -1,13 +1,12 @@
 package IDaeDengGim.indiepicks_demo.movie;
 
-import IDaeDengGim.indiepicks_demo.movie_tag.MovieTagRepository;
+import IDaeDengGim.indiepicks_demo.genre.GenreRepository;
 import IDaeDengGim.indiepicks_demo.tag.Tag;
-import IDaeDengGim.indiepicks_demo.movie_tag.MovieTag;
-import IDaeDengGim.indiepicks_demo.tag.TagDTO;
 import IDaeDengGim.indiepicks_demo.tag.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,41 +14,16 @@ import java.util.stream.Collectors;
 public class MovieService {
 
     private final MovieRepository movieRepository;
-    private final MovieTagRepository movieTagRepository;
     private final TagRepository tagRepository;
 
-    // 모든 영화 가져오기
-    public List<Movie> getAllMovies() {
-        return movieRepository.findAll();
-    }
-
-    // 특정 영화 가져오기
-    public Movie getMovieById(Long id) {
-        return movieRepository.findById(id)
-                .orElse(null);
-    }
+    private final GenreRepository genreRepository;
 
     // 랜덤하게 영화 10개 가져오기
     public List<MovieDTO> getRandomMovies(int limit) {
         List<Movie> randomMovies = movieRepository.findRandomMovies(limit);
         return randomMovies.stream()
-                .map(movie -> new MovieDTO(movie))
+                .map(movie -> new MovieDTO(movie, tagRepository, genreRepository))
                 .collect(Collectors.toList());
-    }
-
-    // 태그 id를 받아서 가져오기
-    public List<Movie> getRecommendedMovies(List<Long> tagIds) {
-        // 태그 ID 목록에 해당하는 모든 movie_tag를 가져옴
-        List<MovieTag> movieTags = movieTagRepository.findByTagIdIn(tagIds);
-
-        // 영화 태그에서 영화 ID 목록 추출
-        List<Long> movieIds = movieTags.stream()
-                .map(movieTag -> movieTag.getMovie().getId())
-                .distinct()
-                .collect(Collectors.toList());
-
-        // 영화 ID를 바탕으로 목록 조회
-        return movieRepository.findAllById(movieIds);
     }
 }
 

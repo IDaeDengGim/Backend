@@ -9,8 +9,9 @@ import java.util.List;
 
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long> {
-    Tag findByName(String name);
-
     @Query(value ="SELECT * FROM tag ORDER BY RAND() LIMIT :limit",nativeQuery = true)
     List<Tag> findRandomTags(@Param("limit")int limit);
+
+    @Query("SELECT t.name FROM Tag t WHERE t.id = :id")
+    String findNameById(@Param("id") Long id);
 }
