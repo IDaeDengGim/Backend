@@ -25,5 +25,13 @@ public class MovieService {
                 .map(movie -> new MovieDTO(movie, tagRepository, genreRepository))
                 .collect(Collectors.toList());
     }
+
+    // 고정 영화 10개 가져오기 (1~10)
+    public List<MovieDTO> getMovies() {
+        List<Movie> randomMovies = movieRepository.findMovies();
+        return randomMovies.stream()
+                .map(movie -> new MovieDTO(movie, tagRepository, genreRepository))
+                .collect(Collectors.toList());
+    }
 }
 
