@@ -18,17 +18,17 @@ public class MovieController {
 
     private final MovieService movieService;
 
-    @GetMapping("/movie")
-    public ResponseEntity<List<MovieDTO>> randomMovies(){
-        try{
-            List<MovieDTO> movies = movieService.getRandomMovies(10);
-            return new ResponseEntity<>(movies, HttpStatus.OK);
-        } catch(Exception e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+//    @GetMapping("/movie")
+//    public ResponseEntity<List<MovieDTO>> randomMovies(){
+//        try{
+//            List<MovieDTO> movies = movieService.getRandomMovies(10);
+//            return new ResponseEntity<>(movies, HttpStatus.OK);
+//        } catch(Exception e){
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 
-    @GetMapping("/picked-movie")
+    @GetMapping("/movie")
     public ResponseEntity<List<MovieDTO>> pickedMovies(){
         try{
             List<MovieDTO> movies = movieService.getMovies();
