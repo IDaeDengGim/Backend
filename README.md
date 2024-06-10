@@ -30,4 +30,5 @@ SpringBoot를 이용하여 IndiePicks 홈페이지의 백엔드 부분을 설계
 <br>
 
 ## 🛠️사용된 기술 스택
-- <img src="https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat-square">
+- <img src="https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white">
+- <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=postman&logoColor=white">
