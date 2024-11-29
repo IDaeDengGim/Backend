@@ -3,7 +3,7 @@
 |🍀|🍀|
 |:---:|:---:|
 |[김근주](https://github.com/tdddt)| [원재영](https://github.com/jaeyeong13)|
-| CSV to JPA<br> REST API 설게 | REST API 설게 |
+| CSV to JPA<br> REST API 설계 | REST API 설계 |
 <br>
 
 ## ✏️프로젝트 개요
